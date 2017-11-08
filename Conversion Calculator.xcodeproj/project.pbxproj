@@ -12,6 +12,7 @@
 		A20BC7F61FB17004002647AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20BC7F51FB17004002647AB /* Assets.xcassets */; };
 		A20BC7F91FB17004002647AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A20BC7F71FB17004002647AB /* LaunchScreen.storyboard */; };
 		A20BC8011FB170BD002647AB /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20BC8001FB170BD002647AB /* ConverterViewController.swift */; };
+		A2FCC93C1FB2C165007EC0C7 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FCC93B1FB2C165007EC0C7 /* Converter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		A20BC7F81FB17004002647AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A20BC7FA1FB17004002647AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20BC8001FB170BD002647AB /* ConverterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewController.swift; sourceTree = "<group>"; };
+		A2FCC93B1FB2C165007EC0C7 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				A20BC7F71FB17004002647AB /* LaunchScreen.storyboard */,
 				A20BC7FA1FB17004002647AB /* Info.plist */,
 				A20BC8001FB170BD002647AB /* ConverterViewController.swift */,
+				A2FCC93B1FB2C165007EC0C7 /* Converter.swift */,
 			);
 			path = "Conversion Calculator";
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A20BC7EF1FB17004002647AB /* AppDelegate.swift in Sources */,
+				A2FCC93C1FB2C165007EC0C7 /* Converter.swift in Sources */,
 				A20BC8011FB170BD002647AB /* ConverterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
