@@ -20,8 +20,26 @@ class ConverterViewController: UIViewController {
     @IBOutlet weak var outputDisplay: UITextField!
     @IBOutlet weak var inputDisplay: UITextField!
     
-    @IBAction func convertTapped(_ sender: UIButton) {
+    @IBAction func buttonPress(_ sender: UIButton) {
+        print(sender.tag)
+        switch sender.tag{
+        case 0:
+            handleNumberPressed(num: sender.titleLabel!.text!)
+        case 1:
+            handleConvertPressed()
+        case 2:
+            handleSignChange()
+        case 3:
+            handleDecimal()
+        case 4:
+            clear()
+        default:
+            break
+        }
         
+    }
+    
+    func handleConvertPressed(){
         let alert = UIAlertController(title: nil, message: "Choose Converter", preferredStyle: UIAlertControllerStyle.actionSheet)
         
         for converter in converters{
@@ -33,6 +51,24 @@ class ConverterViewController: UIViewController {
         }
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func handleNumberPressed(num:String){
+        print(num)
+    }
+    
+    func handleSignChange(){
+        print("sign change")
+    }
+    
+    func handleDecimal(){
+        print("decimal")
+    }
+    
+    func clear(){
+        print("clear")
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
