@@ -10,18 +10,22 @@ import UIKit
 
 class ConverterViewController: UIViewController {
     
+    var inputText:String = ""
+    var outputText:String = ""
+    var currentConverter:Converter = Converter(label: "fahrenheit to celcius", inputUnit: " °F", outputUnit: " °C")
+    
     let converters:[Converter] = [
-        Converter(label: "fahrenheit to celcius", inputUnit: "°F", outputUnit: "°C"),
-        Converter(label: "celcius to fahrenheit", inputUnit: "°C", outputUnit: "°F"),
-        Converter(label: "miles to kilometers", inputUnit: "mi", outputUnit: "km"),
-        Converter(label: "kilometers to miles", inputUnit: "km", outputUnit: "mi")
+        Converter(label: "fahrenheit to celcius", inputUnit: " °F", outputUnit: " °C"),
+        Converter(label: "celcius to fahrenheit", inputUnit: " °C", outputUnit: " °F"),
+        Converter(label: "miles to kilometers", inputUnit: " mi", outputUnit: " km"),
+        Converter(label: "kilometers to miles", inputUnit: " km", outputUnit: " mi")
     ]
 
     @IBOutlet weak var outputDisplay: UITextField!
     @IBOutlet weak var inputDisplay: UITextField!
     
     @IBAction func buttonPress(_ sender: UIButton) {
-        print(sender.tag)
+        //print(sender.tag)
         switch sender.tag{
         case 0:
             handleNumberPressed(num: sender.titleLabel!.text!)
@@ -45,27 +49,74 @@ class ConverterViewController: UIViewController {
         for converter in converters{
             alert.addAction(UIAlertAction(title: converter.label, style: UIAlertActionStyle.default, handler: {
                 (alertAction) -> Void in
-                self.inputDisplay.text = converter.inputUnit
-                self.outputDisplay.text = converter.outputUnit
+                self.inputDisplay.text = self.inputText + converter.inputUnit
+                if let input = Double(self.inputText){
+                    self.outputText = String(self.calculateConversion(input: input))
+                }
+                self.outputDisplay.text = self.outputText + converter.outputUnit
+                self.currentConverter = converter
             }))
         }
         self.present(alert, animated: true, completion: nil)
     }
     
     func handleNumberPressed(num:String){
-        print(num)
+        inputText.append(num)
+        self.inputDisplay.text = inputText + currentConverter.inputUnit
+        if let input = Double(inputText){
+            outputText = String(calculateConversion(input: input))
+        }
+        self.outputDisplay.text = outputText + currentConverter.outputUnit
+    }
+    
+    func calculateConversion(input:Double) -> Double{
+        
+        var output:Double = 0.0
+        
+        switch currentConverter.label{
+        case "fahrenheit to celcius":
+            output = (input - 32) * (5/9)
+        case "celcius to fahrenheit":
+            output = input * (9/5) + 32
+        case "miles to kilometers":
+            output = input * 0.621371
+        case "kilometers to miles":
+            output = input * 1.609344
+        default:
+            break
+        }
+        return output
     }
     
     func handleSignChange(){
-        print("sign change")
+        if(!self.inputText.isEmpty){
+            if(self.inputText.first != "-"){
+                self.inputText = "-" + self.inputText
+            }else{
+                self.inputText.remove(at: self.inputText.index(of: "-")!)
+            }
+            self.outputText = String(calculateConversion(input: Double(self.inputText)!))
+            self.inputDisplay.text = inputText + currentConverter.inputUnit
+            self.outputDisplay.text = outputText + currentConverter.outputUnit
+        }
+        
+       
     }
     
     func handleDecimal(){
-        print("decimal")
+        if(self.inputText.last != "."){
+            self.inputText.append(".")
+            self.outputText.append(".")
+            self.inputDisplay.text = inputText + currentConverter.inputUnit
+            self.outputDisplay.text = outputText + currentConverter.outputUnit
+        }
     }
     
     func clear(){
-        print("clear")
+        self.inputText = ""
+        self.outputText = ""
+        self.inputDisplay.text = inputText + currentConverter.inputUnit
+        self.outputDisplay.text = outputText + currentConverter.outputUnit
     }
     
     
@@ -76,6 +127,7 @@ class ConverterViewController: UIViewController {
        
         
         let defaultConverter = converters[0]
+        currentConverter = defaultConverter
         
         inputDisplay.text = defaultConverter.inputUnit
         outputDisplay.text = defaultConverter.outputUnit
