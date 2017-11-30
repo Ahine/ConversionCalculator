@@ -13,7 +13,7 @@ class ConverterViewController: UIViewController {
     var inputText:String = ""
     var outputText:String = ""
     var currentConverter:Converter = Converter(label: "fahrenheit to celcius", inputUnit: " °F", outputUnit: " °C")
-    
+
     let converters:[Converter] = [
         Converter(label: "fahrenheit to celcius", inputUnit: " °F", outputUnit: " °C"),
         Converter(label: "celcius to fahrenheit", inputUnit: " °C", outputUnit: " °F"),
@@ -49,12 +49,13 @@ class ConverterViewController: UIViewController {
         for converter in converters{
             alert.addAction(UIAlertAction(title: converter.label, style: UIAlertActionStyle.default, handler: {
                 (alertAction) -> Void in
+                self.currentConverter = converter
                 self.inputDisplay.text = self.inputText + converter.inputUnit
                 if let input = Double(self.inputText){
-                    self.outputText = String(self.calculateConversion(input: input))
+                    self.outputText = String(format: "%.2f", self.calculateConversion(input: input))
                 }
                 self.outputDisplay.text = self.outputText + converter.outputUnit
-                self.currentConverter = converter
+                
             }))
         }
         self.present(alert, animated: true, completion: nil)
@@ -64,7 +65,7 @@ class ConverterViewController: UIViewController {
         inputText.append(num)
         self.inputDisplay.text = inputText + currentConverter.inputUnit
         if let input = Double(inputText){
-            outputText = String(calculateConversion(input: input))
+            outputText = String(format: "%.2f", calculateConversion(input: input))
         }
         self.outputDisplay.text = outputText + currentConverter.outputUnit
     }
@@ -79,9 +80,9 @@ class ConverterViewController: UIViewController {
         case "celcius to fahrenheit":
             output = input * (9/5) + 32
         case "miles to kilometers":
-            output = input * 0.621371
+            output = input / 0.62137
         case "kilometers to miles":
-            output = input * 1.609344
+            output = input * 0.62137
         default:
             break
         }
@@ -95,7 +96,7 @@ class ConverterViewController: UIViewController {
             }else{
                 self.inputText.remove(at: self.inputText.index(of: "-")!)
             }
-            self.outputText = String(calculateConversion(input: Double(self.inputText)!))
+            self.outputText = String(format: "%.2f", calculateConversion(input: Double(self.inputText)!))
             self.inputDisplay.text = inputText + currentConverter.inputUnit
             self.outputDisplay.text = outputText + currentConverter.outputUnit
         }
@@ -104,9 +105,8 @@ class ConverterViewController: UIViewController {
     }
     
     func handleDecimal(){
-        if(self.inputText.last != "."){
+        if(!self.inputText.contains(".") && self.inputText.last != "."){
             self.inputText.append(".")
-            self.outputText.append(".")
             self.inputDisplay.text = inputText + currentConverter.inputUnit
             self.outputDisplay.text = outputText + currentConverter.outputUnit
         }
